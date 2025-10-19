@@ -1,0 +1,18 @@
+{
+  "milestone_id": "MS-YYYY-XXXXXXXX",
+  "actor_role": "HITL | HOTL | HOUTL",
+  "coherence_score": 0.0-100.0,
+  "verification_proof": {
+    "method": "PEER_REVIEW | AUTOMATED_TEST | ...",
+    "acceptance_criteria": ["..."],
+    "validators": [...]
+  },
+  "risk_level": "T1_OPEN | T2_BUSINESS | T3A_UCHE | T3B_EZE",
+  "reward_allocation": {
+    "total_amount_gbp": 0,
+    "payment_structure": "...",
+    "escrow_required": true/false
+  },
+  "human_review_required": true/false,
+  "status": "PROPOSED | ... | COMPLETED"
+}
