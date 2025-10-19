@@ -1,0 +1,34 @@
+{
+  "milestone_id": "MS-EXAMPLE-0001",
+  "actor_role": "HITL",
+  "actor_guid": "00000000-0000-0000-0000-000000000000",
+  "risk_tier": "T1_OPEN",
+  "deliverable": {
+    "title": "Prototype: public milestone ledger UI",
+    "description": "Create a minimal frontend that lists milestones and proof links; includes timestamps and GUID telemetry.",
+    "acceptance_criteria": [
+      "Frontend lists at least 3 synthetic milestones",
+      "Each milestone displays status, dignity_score, and verification_proof URL",
+      "Commit history contains GUID telemetry for each milestone insert"
+    ],
+    "deadline": "2026-01-01T00:00:00Z",
+    "milestone_value_gbp": 0
+  },
+  "dignity_score": {
+    "current_score": 90,
+    "target_score": 85,
+    "components": {
+      "communication_transparency": 95,
+      "deadline_adherence": 85,
+      "quality_standards": 88,
+      "human_rights_respect": 100,
+      "no_ghosting_compliance": 92
+    }
+  },
+  "compliance": {
+    "coherence_score": 96.1,
+    "constitutional_validation": true,
+    "policy_shuffle_level": 2
+  },
+  "milestone_status": "APPROVED"
+}
