@@ -1,0 +1,385 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OBINexus Milestone Contract Schema",
+  "description": "Machine-verifiable milestone investment contract with constitutional compliance",
+  "type": "object",
+  "required": [
+    "milestone_id",
+    "actor_role",
+    "risk_tier",
+    "deliverable",
+    "verification_proof",
+    "dignity_score",
+    "compliance_status"
+  ],
+  "properties": {
+    "milestone_id": {
+      "type": "string",
+      "pattern": "^MS-[0-9]{4}-[A-Z0-9]{8}$",
+      "description": "Unique milestone identifier (e.g., MS-2025-A3F8B9C2)"
+    },
+    "actor_role": {
+      "type": "string",
+      "enum": ["HITL", "HOTL", "HOUTL"],
+      "description": "Human loop position: In-the-Loop, On-the-Loop, Out-of-the-Loop"
+    },
+    "actor_details": {
+      "type": "object",
+      "required": ["name", "guid", "constitutional_agreement"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Legal name of responsible actor"
+        },
+        "guid": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$",
+          "description": "Global unique identifier for actor telemetry"
+        },
+        "constitutional_agreement": {
+          "type": "boolean",
+          "description": "Confirms acceptance of OBINexus Constitutional Framework"
+        },
+        "education_verified": {
+          "type": "boolean",
+          "description": "Bachelor's degree verification (for T2/T3 tiers)"
+        }
+      }
+    },
+    "risk_tier": {
+      "type": "string",
+      "enum": ["T1_OPEN", "T2_BUSINESS", "T3A_UCHE", "T3B_EZE"],
+      "description": "Service tier determining risk and access level"
+    },
+    "risk_assessment": {
+      "type": "object",
+      "required": ["financial_exposure", "technical_complexity", "legal_liability"],
+      "properties": {
+        "financial_exposure": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Monetary value at stake (GBP)"
+        },
+        "technical_complexity": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Complexity score (1=simple, 10=critical infrastructure)"
+        },
+        "legal_liability": {
+          "type": "string",
+          "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
+          "description": "Potential legal consequence severity"
+        },
+        "entrapment_risk_factors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "IMPROBABILITY",
+              "EXHAUSTION",
+              "LOOPBACK",
+              "SILENCE",
+              "ASSERTION",
+              "CONTRADICTION",
+              "INTIMIDABILITY",
+              "TRIPLING"
+            ]
+          },
+          "description": "Identified entrapment algorithm risks"
+        }
+      }
+    },
+    "deliverable": {
+      "type": "object",
+      "required": ["description", "acceptance_criteria", "deadline"],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 50,
+          "description": "Clear, measurable deliverable description"
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 3,
+          "description": "Objective verification criteria (minimum 3)"
+        },
+        "deadline": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 deadline for milestone completion"
+        },
+        "milestone_value": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Payment amount upon verified completion (GBP)"
+        }
+      }
+    },
+    "verification_proof": {
+      "type": "object",
+      "required": ["method", "validators"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["PEER_REVIEW", "AUTOMATED_TEST", "CLIENT_ACCEPTANCE", "THIRD_PARTY_AUDIT"],
+          "description": "Primary verification method"
+        },
+        "validators": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "guid", "approval_status"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "guid": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+              },
+              "approval_status": {
+                "type": "string",
+                "enum": ["PENDING", "APPROVED", "REJECTED", "REQUIRES_REVISION"]
+              },
+              "approval_timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "minItems": 2,
+          "description": "Minimum two validators required per OBINexus constitution"
+        },
+        "proof_artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact_type": {
+                "type": "string",
+                "enum": ["CODE_COMMIT", "TEST_REPORT", "DOCUMENTATION", "DEMO_VIDEO", "CLIENT_SIGNOFF"]
+              },
+              "artifact_uri": {
+                "type": "string",
+                "format": "uri"
+              },
+              "hash": {
+                "type": "string",
+                "description": "Cryptographic hash for immutability verification"
+              }
+            }
+          }
+        }
+      }
+    },
+    "dignity_score": {
+      "type": "object",
+      "required": ["current_score", "target_score"],
+      "properties": {
+        "current_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Current constitutional compliance score"
+        },
+        "target_score": {
+          "type": "number",
+          "minimum": 85,
+          "maximum": 100,
+          "description": "Required score for milestone approval (minimum 85%)"
+        },
+        "dignity_components": {
+          "type": "object",
+          "properties": {
+            "communication_transparency": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "deadline_adherence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "quality_standards": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "human_rights_respect": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Anti-harassment and neurodivergent inclusivity score"
+            },
+            "no_ghosting_compliance": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Response time and communication continuity"
+            }
+          }
+        }
+      }
+    },
+    "compliance_status": {
+      "type": "object",
+      "required": ["constitutional_engine_validation", "policy_shuffle_level"],
+      "properties": {
+        "constitutional_engine_validation": {
+          "type": "boolean",
+          "description": "Automated Constitutional Compliance Engine approval"
+        },
+        "policy_shuffle_level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 12,
+          "description": "Severity level (0-3=OK, 3-6=Warning, 6-9=Danger, 9-12=Critical)"
+        },
+        "policy_violations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "violation_type": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["WARNING", "CRITICAL", "PANIC"]
+              },
+              "automated_penalty": {
+                "type": "string",
+                "description": "Automatic consequence triggered"
+              },
+              "universal_pension_allocation": {
+                "type": "number",
+                "description": "Compensation amount triggered (GBP)"
+              }
+            }
+          }
+        },
+        "legal_audit_trail": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "event_type": {
+                "type": "string"
+              },
+              "actor_guid": {
+                "type": "string"
+              },
+              "event_hash": {
+                "type": "string",
+                "description": "Blockchain-verified event hash"
+              }
+            }
+          },
+          "description": "Immutable audit log for legal enforcement"
+        }
+      }
+    },
+    "no_ghosting_enforcement": {
+      "type": "object",
+      "required": ["max_response_time", "last_communication"],
+      "properties": {
+        "max_response_time": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 14,
+          "description": "Maximum days before ghosting violation (14-day constitutional standard)"
+        },
+        "last_communication": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of last documented communication"
+        },
+        "ghosting_warnings": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Count of ghosting warnings issued"
+        },
+        "breach_penalty": {
+          "type": "number",
+          "description": "Automatic financial penalty per day of ghosting (GBP)"
+        }
+      }
+    },
+    "milestone_status": {
+      "type": "string",
+      "enum": [
+        "PROPOSED",
+        "CONSTITUTIONAL_REVIEW",
+        "APPROVED",
+        "IN_PROGRESS",
+        "VERIFICATION_PENDING",
+        "COMPLETED",
+        "REJECTED",
+        "SUSPENDED",
+        "BREACH_ENFORCEMENT"
+      ],
+      "description": "Current milestone lifecycle state"
+    },
+    "payment_escrow": {
+      "type": "object",
+      "properties": {
+        "escrow_account": {
+          "type": "string",
+          "description": "Third-party escrow account identifier"
+        },
+        "release_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specific conditions triggering payment release"
+        },
+        "release_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Actual payment release date"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "description": "SemVer version tracking"
+        },
+        "linked_repositories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": "GitHub repos connected to this milestone"
+        },
+        "constitutional_framework_version": {
+          "type": "string",
+          "description": "OBINexus Constitutional Framework version applied"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
